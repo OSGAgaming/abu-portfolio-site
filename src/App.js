@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Canvas from './Canvas'
+import * as core from './CanvasObjects'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  var verlet = new core.DrawableVerletSystem();
+  var entities = new core.Scene();
+
+  verlet.addPoint(10,100);
+  verlet.addPoint(100,100);
+
+  entities.addEntity(verlet);
+
+  const draw = (ctx, frameCount) => {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    entities.drawEntities(ctx);
+  }
+  
+  return <Canvas draw={draw} options={'2d'}/>
 }
 
-export default App;
+export default App
