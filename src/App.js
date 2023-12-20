@@ -46,15 +46,20 @@ function App() {
   }
 
   entities.addEntity(verlet);
-
+  
   verlet.addConstraint(firstEnd, secondEnd, chain2X - chain1X);
-
+  
   const draw = (ctx, frameCount) => {
     ctx.canvas.width  = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
     ctx.fillStyle = "black";
 
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
+    var fEnd = verlet.getPoint(firstEnd).position;
+    var sEnd = verlet.getPoint(secondEnd).position;
+
+    core.Text.draw(ctx, (fEnd.x + sEnd.x) / 2,(fEnd.y + sEnd.y) / 2,"Hi",48)
     entities.drawEntities(ctx);
   }
   

@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 
+//=========================ENTITIES=========================
+
 class Scene {
   constructor(){
     this.entities = [];
@@ -83,6 +85,28 @@ class Circle extends Drawable{
     context.fill();
   }
 }
+class Text extends Drawable{
+  constructor(x,y, text, fontSize,font){
+    super(x,y);
+    this.fontSize = fontSize;
+    this.text = text;
+    this.font = font;
+  }
+
+  onDraw(context){
+    context.font = `${this.fontSize}px ${this.font}`;
+    context.fillText(this.text, 0, 0);
+  }
+
+  static draw(context,x,y,text,fontSize,font = "Arial",color = "white"){
+    context.setTransform(1, 0, 0, 1, x, y);
+    
+    context.fillStyle = color; 
+    context.font = `${fontSize}px ${font}`;
+    context.textAlign = "center";
+    context.fillText(text, 0, 0);
+  }
+}
 
 class Line extends Drawable{
   constructor(p1, p2, lineWidth){
@@ -124,6 +148,8 @@ class KinematicEntity extends Entity {
     this.velocity = new Vector2(0,0);
   }
 }
+
+//=========================VERLET=========================
 
 class Point extends KinematicEntity {
   constructor(position, isStatic = false){
@@ -255,5 +281,6 @@ export{
   DrawableVerletSystem,
   Scene,
   Circle,
+  Text,
   Vector2
 }
