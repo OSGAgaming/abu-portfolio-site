@@ -3,9 +3,9 @@ import useCanvas from './CanvasHook'
 
 const Canvas = props => {
   
-  const { draw, options, ...rest } = props
+  const { draw, update, options, ...rest } = props
   const {context, ...otherOptions} = options
-  const canvasRef = useCanvas(draw, context)
+  const canvasRef = useCanvas(draw, update, context)
   
   return <canvas ref={canvasRef} {...rest}/>
 }

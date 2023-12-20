@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 
-const useCanvas = (draw, options = {}) => {
+const useCanvas = (draw, update, options = {}) => {
   
   const canvasRef = useRef(null)
   
@@ -15,7 +15,8 @@ const useCanvas = (draw, options = {}) => {
       context.save();
       context.clearRect(0, 0, canvas.width, canvas.height);
       frameCount++
-      draw(context, frameCount)
+      draw(context, frameCount);
+      update(frameCount);
       animationFrameId = window.requestAnimationFrame(render)
       context.restore();
     }
@@ -24,7 +25,7 @@ const useCanvas = (draw, options = {}) => {
     return () => {
       window.cancelAnimationFrame(animationFrameId)
     }
-  }, [draw])
+  }, [draw, update])
   
   return canvasRef
 }
